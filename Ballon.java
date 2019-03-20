@@ -8,6 +8,9 @@ public class Ballon {
   int x;
   int y;
   final int diameter = 50;
+  //CONDITIONS INITIALES
+  private double v_0;
+  private double theta;
 
   public Ballon(int init_x, int init_y) {
 
@@ -26,11 +29,31 @@ public class Ballon {
     g.fillOval(this.x, this.y, this.diameter, this.diameter);
   }
 
-  public void setCoords(double t, double theta, double v_0) {
+  public void setConditionsInitiales(double v_0, double theta) {
+
+    this.v_0 = v_0;
+    this.theta = theta;
+
+  }
+
+  public void setCoords(double t) {
     double g =0.01;
     this.x =(int) (v_0*Math.cos(theta)*t+init_x);
     this.y =(int) (g*(t*t)/2-v_0*Math.sin(theta)*t+init_y);
 
+  }
+
+  public int getVitesseX(double t, double theta, double v_0) {
+    int vx;
+    vx= (int) (v_0*Math.cos(theta));
+    return vx;
+  }
+
+  public int getVitesseY(double t, double theta, double v_0) {
+    int vy;
+    double g = 0.01;
+    vy = (int)(g*t-v_0*Math.sin(theta));
+    return vy;
   }
 
   public int getInitX() {

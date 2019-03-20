@@ -39,7 +39,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     g.setColor(Color.black);
     g.fillRect(0,0, 800, 600);
 
-    ball.setCoords(time, argument, (module/170)*4);
+    ball.setCoords(time);
     ball.drawBall(g);
     panier.dessine(g);
 
@@ -89,6 +89,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 
       argument = -1*Math.atan(((double) (cercleY-sourisY))/(cercleX-sourisX));
       module = Math.sqrt(Math.pow(cercleY - sourisY, 2) + Math.pow(cercleX - sourisX, 2));
+      ball.setConditionsInitiales((module/170)*4, argument);
       timer.start();
       time = 0;
       repaint();
