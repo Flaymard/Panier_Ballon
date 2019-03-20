@@ -32,7 +32,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     timer = new Timer(deltaT, this);
-    timerbis = new Timer(deltaT, this);
+    timerbis = new Timer(100, this);
     timerbis.start();   
 
   }
