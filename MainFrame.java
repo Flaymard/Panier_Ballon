@@ -33,7 +33,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 
     timer = new Timer(deltaT, this);
     timerbis = new Timer(deltaT, this);
-    timerbis.start();   
+    timerbis.start();
 
   }
 
@@ -127,6 +127,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 
     if(e.getSource() == timer) {
       time += deltaT;
+      testContact();
       repaint();
 
     }
@@ -136,6 +137,22 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 
     }
 
+  }
+
+  public void testContact() {
+    double nbPas = 1000;
+    double theta = 0.0;
+    for(int i=0; i<nbPas; i++){
+      theta = (2*Math.PI)*i/nbPas;
+      boolean sur_x = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r1[0]-5) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r1[0]+5);
+      boolean sur_y = panier.r1[1]-5<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r1[1] + 5 + panier.r1[3];
+      if(sur_x && sur_y) {
+        ball.setCoordsInitiales(ball.x, ball.y);
+        double new_v0 = Math.sqrt(ball.getVitesseX() * ball.getVitesseX() + ball.getVitesseY() * ball.getVitesseY());
+        // CALCULER L'ARGUMENT
+        //ball.setConditionsInitiales();
+      }
+    }
   }
 
 }

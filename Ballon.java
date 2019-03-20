@@ -7,7 +7,7 @@ public class Ballon {
   int init_y;
   int x;
   int y;
-  final int diameter = 50;
+  public final int diameter = 50;
   //CONDITIONS INITIALES
   private double v_0;
   private double theta;
@@ -36,8 +36,14 @@ public class Ballon {
 
   }
 
+  public void setCoordsInitiales(int initx , int inity) {
+
+    init_x = initx;
+    init_y = inity;
+  }
+
   public void setCoords(double t) {
-    double g =0.01;
+    double g = 0.01;
     this.x =(int) (v_0*Math.cos(theta)*t+init_x);
     this.y =(int) (g*(t*t)/2-v_0*Math.sin(theta)*t+init_y);
 

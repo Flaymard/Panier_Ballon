@@ -12,8 +12,8 @@ public class PanierBallon {
     window = new MainFrame();
     Ballon b = new Ballon(100,450);
     Panier p = new Panier();
-    window.setBallon(b);
     window.setPanier(p);
+    window.setBallon(b);
 
   }
 
