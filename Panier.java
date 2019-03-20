@@ -5,16 +5,16 @@ import java.awt.Graphics;
 
 public class Panier{
     
-    int sens=1;
-    int variable=0;
-	int []xp = {700,780,765,715};
-	int []yp = {165+variable,165+variable,235+variable,235+variable};
-	int [] r1 = {700,150,81,15};
-	int []r2 = {770,80,10,70};
-	int []l1 = {726,165, 705,188};
-	int []l2= {752,165, 710,211};
-	int []l3= { 780,165, 715,235};
-	int []l4 = {780,165, 715,235};
+    public int sens=-1;
+    public int variable=0;
+	public int []xp = {700,780,765,715};
+	public int []yp = {165+variable,165+variable,235+variable,235+variable};
+	public int [] r1 = {700,150,81,15};
+	public int []r2 = {770,80,10,70};
+	public int []l1 = {726,165, 705,188};
+	public int []l2= {752,165, 710,211};
+	public int []l3= { 780,165, 715,235};
+	public int []l4 = {780,165, 715,235};
 	
 	public Panier () {
 		
@@ -34,10 +34,8 @@ public class Panier{
 	}
 	
 	public void deplace(){
-		
-        if (r1[1]<=450 && r1[1]>=150){
-            this.variable= sens*5;
-        } else {
+		this.variable= sens*5;
+        if (this.r1[1]>=450 && this.r1[1]<=150){
             this.sens=-this.sens;
         }
 	}

@@ -14,6 +14,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
   double time = 0;
   int deltaT = 15;
   Timer timer;
+  Timer timerbis;
 
   double argument = 0.0;
   double module = 0.0;
@@ -31,6 +32,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     timer = new Timer(deltaT, this);
+    timerbis = new Timer(deltaT, this);
+    timerbis.start();   
 
   }
 
@@ -124,6 +127,11 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 
     if(e.getSource() == timer) {
       time += deltaT;
+      repaint();
+
+    }
+    if(e.getSource() == timerbis) {
+      this.panier.deplace();
       repaint();
 
     }
