@@ -32,10 +32,13 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     timer = new Timer(deltaT, this);
+<<<<<<< HEAD
     timerbis = new Timer(deltaT, this);
     timerbis.start();
+=======
     timerbis = new Timer(100, this);
-    timerbis.start();
+    timerbis.start();   
+>>>>>>> bcef83ba840b53f558b18ebc207da22c62c30cd2
 
   }
 
@@ -140,7 +143,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     }
 
   }
-  
+
   public void testContact() {
     double nbPas = 1000;
     double theta = 0.0;
