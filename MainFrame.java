@@ -140,7 +140,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     }
 
   }
-  
+
   public void testContact() {
     double nbPas = 1000;
     double theta = 0.0;
@@ -150,7 +150,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
       boolean sur_y = panier.r1[1]-5<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r1[1] + 5 + panier.r1[3];
       if(sur_x && sur_y) {
         ball.setCoordsInitiales(ball.x, ball.y);
-        double new_v0 = Math.sqrt(ball.getVitesseX() * ball.getVitesseX() + ball.getVitesseY() * ball.getVitesseY());
+        double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
         // CALCULER L'ARGUMENT
         //ball.setConditionsInitiales();
       }
