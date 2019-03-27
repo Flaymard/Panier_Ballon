@@ -43,6 +43,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 
     g.setColor(Color.black);
     g.fillRect(0,0, 800, 600);
+    g.setColor(Color.orange);
 
     ball.setCoords(time);
     ball.drawBall(g);
