@@ -6,7 +6,7 @@ public class Trajectoire {
   double module, argument;
   int [] coordX;
   int [] coordY;
-  final int nbPoints = 35;
+  final int nbPoints = 155;
 
   public Trajectoire(double v_0, double argument, int init_x, int init_y){
     coordX = new int [nbPoints];
