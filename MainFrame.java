@@ -147,23 +147,25 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     double theta = 0.0;
     for(int i=0; i<nbPas; i++){
       theta = (2*Math.PI)*i/nbPas;
-      boolean sur_xa = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r1[0]-1) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r1[0]+1);
+      boolean sur_xa = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r1[0]-1) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r1[0]+0) && ((ball.getCenterX() - (ball.diameter/2)) < panier.r1[0]);
       boolean sur_ya = panier.r1[1]-1<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r1[1] + 1 + panier.r1[3];
-      boolean sur_xp = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r2[0]-1) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r2[0]+1);
+
+      boolean sur_xp = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r2[0]-0) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r2[0]+1);
       boolean sur_yp = panier.r2[1]-1<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r2[1]  + panier.r2[3];
+
       boolean dans_x = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r1[0]+1) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r1[0]+panier.r1[2]);
       boolean dans_y =panier.r1[1]<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r1[1] + panier.r1[3];
       if(sur_xa && sur_ya && time > 60) {
         System.out.println("contact");
         ball.setCoordsInitiales(ball.x, ball.y);
         double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
-        double new_theta = Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
+        double new_theta = -Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
         ball.setConditionsInitiales(new_v0, Math.PI-new_theta);
         time = 0;
       }else if(sur_xp && sur_yp && time > 60){
         ball.setCoordsInitiales(ball.x,ball.y);
         double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
-        double new_theta = Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
+        double new_theta = -Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
         ball.setConditionsInitiales(new_v0, Math.PI-new_theta);
         time = 0;
       }else if(dans_x && dans_y){

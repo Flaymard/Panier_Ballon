@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.awt.Graphics;
 
 public class Panier{
-    
+
     public int sens=1;
     public int variable=0;
     public boolean descend=true;
@@ -12,7 +12,7 @@ public class Panier{
     public int []xp= {700,780,765,715};
 	public int []ypi = {165,165,235,235};
     public int []yp={165,165,235,235};
-	public int [] r1i = {700,150,81,15};
+	public int [] r1i = {670,150,111,15};
     public int []r1={700,150,81,15};
 	public int []r2i = {770,80,10,70};
     public int []r2={770,80,10,70};
@@ -24,17 +24,17 @@ public class Panier{
     public int []l3={780,165,715,235};
 	public int []l4i ={780,165,715,235};
     public int []l4={780,165,715,235};
-	
+
 	public Panier () {
-		
+
 	}
-	
+
 	public void dessine(Graphics g){
 		g.setColor(Color.red);
         r1[1]= r1[1]+ variable;
         r2[1] = r2[1]+variable;
-        l1[1] = l1[1]+variable; 
-        l1[3] =l1[3]+variable; 
+        l1[1] = l1[1]+variable;
+        l1[3] =l1[3]+variable;
         l2[1] =l2[1]+variable;
         l2[3] = l2[3]+variable;
         l3[1]= l3[1]+variable;
@@ -52,9 +52,9 @@ public class Panier{
 		g.drawLine(l2[0],l2[1],l2[2],l2[3]);
 		g.drawLine(l3[0],l3[1],l3[2],l3[3]);
 		g.drawLine(l4[0],l4[1],l4[2],l4[3]);
-		
+
 	}
-	
+
 	public void deplace(){
 		this.variable= sens*5;
         if (this.r1[1]>450){
