@@ -12,8 +12,8 @@ public class Panier{
     public int []xp= {700,780,765,715};
 	public int []ypi = {165,165,235,235};
     public int []yp={165,165,235,235};
-	public int [] r1i = {670,150,111,15};
-    public int []r1={700,150,81,15};
+	public int [] r1i = {670,150,170,15};
+    public int []r1={670,150,111,15};
 	public int []r2i = {770,80,10,70};
     public int []r2={770,80,10,70};
 	public int []l1i ={726,165,705,188};
