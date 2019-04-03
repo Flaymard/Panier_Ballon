@@ -49,16 +49,16 @@ public class Ballon {
 
   }
 
-  public int getVitesseX(double t) {
-    int vx;
-    vx= (int) (v_0*Math.cos(theta));
+  public double getVitesseX(double t) {
+    double vx;
+    vx= (v_0*Math.cos(theta));
     return vx;
   }
 
-  public int getVitesseY(double t) {
-    int vy;
+  public double getVitesseY(double t) {
+    double vy;
     double g = 0.01;
-    vy = (int)(g*t-v_0*Math.sin(theta));
+    vy = g*t-v_0*Math.sin(theta);
     return vy;
   }
 
