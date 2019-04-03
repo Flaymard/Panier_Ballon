@@ -12,7 +12,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
   Panier panier = null;
 
   double time = 0;
-  int deltaT = 15;
+  int deltaT = 12;
   Timer timer;
   Timer timerbis;
 
@@ -145,34 +145,56 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
   public void testContact() {
     double nbPas = 1000;
     double theta = 0.0;
+    boolean sur_xa = false;
+    boolean sur_ya = false;
+    boolean sur_xp = false;
+    boolean sur_yp = false;
+    //System.out.println(panier.r1[0]);
+    // balle rentre dans le panier
+
+    boolean dans_x = (ball.getCenterX() >= panier.r1[0]+1) && (ball.getCenterX()<= panier.r1[0]+panier.r1[2] - 1);
+    boolean dans_y = (panier.r1[1]<=ball.getCenterY()) && (ball.getCenterY() <= panier.r1[1] + panier.r1[3]);
+
     for(int i=0; i<nbPas; i++){
       theta = (2*Math.PI)*i/nbPas;
-      boolean sur_xa = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r1[0]-1) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r1[0]+0) && ((ball.getCenterX() - (ball.diameter/2)) < panier.r1[0]);
-      boolean sur_ya = panier.r1[1]-1<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r1[1] + 1 + panier.r1[3];
 
-      boolean sur_xp = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r2[0]-0) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r2[0]+1);
-      boolean sur_yp = panier.r2[1]-1<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r2[1]  + panier.r2[3];
+      // contact avec l'anneau
+      sur_xa = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r1[0]-7) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r1[0]+0) && ((ball.getCenterX() - (ball.diameter/2)) < panier.r1[0]);
+      sur_ya = panier.r1[1]-7<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.getCenterY() + (ball.diameter/2)*Math.sin(theta))<= panier.r1[1] + 7 + panier.r1[3];
+      if(sur_xa && sur_ya) break;
 
-      boolean dans_x = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r1[0]+1) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r1[0]+panier.r1[2]);
-      boolean dans_y =panier.r1[1]<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.y + (ball.diameter/2)*Math.sin(theta))<= panier.r1[1] + panier.r1[3];
+      // contact avec la planche
+      sur_xp = (ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) >= panier.r2[0]-0) && ((ball.getCenterX() + (ball.diameter/2)*Math.cos(theta))<= panier.r2[0]+1);
+      sur_yp = panier.r2[1]-1<=(ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)) && (ball.getCenterY() + (ball.diameter/2)*Math.sin(theta))<= panier.r2[1]  + panier.r2[3];
+      if(sur_xp && sur_yp) break;
+
+
+    }
+
       if(sur_xa && sur_ya && time > 60) {
-        System.out.println("contact");
+        System.out.println("contact " + ( ball.getCenterX() + (ball.diameter/2)*Math.cos(theta) ) + " " + (ball.getCenterY() + (ball.diameter/2)*Math.sin(theta)));
         ball.setCoordsInitiales(ball.x, ball.y);
         double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
         double new_theta = -Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
         ball.setConditionsInitiales(new_v0, Math.PI-new_theta);
         time = 0;
+      }
+
       }else if(sur_xp && sur_yp && time > 60){
         ball.setCoordsInitiales(ball.x,ball.y);
         double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
         double new_theta = -Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
         ball.setConditionsInitiales(new_v0, Math.PI-new_theta);
         time = 0;
-      }else if(dans_x && dans_y){
-        System.out.println("gechldcqhls"); //problème pcq ca s'affiche même si ca passe pas dans le ballon, je pense que c'est une histoire des theta mais je sais pas comment faire
-
+      }else if(dans_x && dans_y && time > 30){
+        System.out.println("Panier"); // problème pcq ca s'affiche même si ca passe pas dans le ballon, je pense que c'est une histoire des theta mais je sais pas comment faire
+        dans_x = false;
+        dans_y = false;
+        ball.setCoordsInitiales(ball.x,ball.y);
+        double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
+        ball.setConditionsInitiales(new_v0, -Math.PI/2);
+        time = 0;
       }
-    }
   }
 
 }
