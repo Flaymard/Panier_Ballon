@@ -16,6 +16,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
   Timer timer;
   Timer timerbis;
 
+  int score = 0;
+
   double argument = 0.0;
   double module = 0.0;
 
@@ -149,11 +151,17 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     boolean sur_ya = false;
     boolean sur_xp = false;
     boolean sur_yp = false;
+
     //System.out.println(panier.r1[0]);
     // balle rentre dans le panier
 
     boolean dans_x = (ball.getCenterX() >= panier.r1[0]+1) && (ball.getCenterX()<= panier.r1[0]+panier.r1[2] - 1);
     boolean dans_y = (panier.r1[1]<=ball.getCenterY()) && (ball.getCenterY() <= panier.r1[1] + panier.r1[3]);
+
+    // balle sort du catch cadre
+    boolean hors_x = ((ball.x + 50) >= 800 || ball.x<=0);
+    boolean hors_y = (/*(ball.y + 50) <=0* ||*/ ball.y +50 >=600 );
+
 
     for(int i=0; i<nbPas; i++){
       theta = (2*Math.PI)*i/nbPas;
@@ -180,20 +188,29 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
         time = 0;
       }
 
-      }else if(sur_xp && sur_yp && time > 60){
+      else if(sur_xp && sur_yp && time > 60){
         ball.setCoordsInitiales(ball.x,ball.y);
         double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
         double new_theta = -Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
         ball.setConditionsInitiales(new_v0, Math.PI-new_theta);
         time = 0;
-      }else if(dans_x && dans_y && time > 30){
+      }else if(dans_x && dans_y && time > deltaT){
         System.out.println("Panier"); // problème pcq ca s'affiche même si ca passe pas dans le ballon, je pense que c'est une histoire des theta mais je sais pas comment faire
+        score = score + 1;
         dans_x = false;
         dans_y = false;
         ball.setCoordsInitiales(ball.x,ball.y);
         double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
         ball.setConditionsInitiales(new_v0, -Math.PI/2);
         time = 0;
+      }else if(hors_x || hors_y){
+        System.out.println("HE HE HE LES GARS ÇA SORT JE SAIS PAS SI VOUS AVEZ VU");
+
+        timer.stop();
+        time = 0;
+        ball.setCoordsInitiales((int)(Math.random()*(300-10)+ 10),(int)(Math.random()*(500-300)+300));
+        hors_x = false;
+        hors_y = false;
       }
   }
 
