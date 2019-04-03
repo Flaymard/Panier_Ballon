@@ -11,8 +11,11 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 
   Panier panier = null;
 
+  Horloge horloge;
+
   double time = 0;
-  int deltaT = 12;
+  int tempsJeu = 0;
+  int deltaT = 8;
   Timer timer;
   Timer timerbis;
 
@@ -36,8 +39,10 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     timer = new Timer(deltaT, this);
     timerbis = new Timer(deltaT, this);
     timerbis.start();
-    timerbis = new Timer(100, this);
+    timerbis = new Timer(1000, this);
     timerbis.start();
+
+    horloge = new Horloge(tempsJeu, score);
 
   }
 
@@ -46,10 +51,13 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     g.setColor(Color.black);
     g.fillRect(0,0, 800, 600);
     g.setColor(Color.orange);
-
     ball.setCoords(time);
     ball.drawBall(g);
+
     panier.dessine(g);
+
+    g.setColor(Color.white);
+    horloge.dessine(g);
 
     if(drawTraj) {
       Trajectoire traj = new Trajectoire((module/170)*4, argument, ball.getCenterX(), ball.getCenterY());
@@ -138,6 +146,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     }
     if(e.getSource() == timerbis) {
       //this.panier.deplace();
+      tempsJeu += 1000;
+      horloge.setTemps(tempsJeu/1000);
       repaint();
 
     }
@@ -151,6 +161,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
     boolean sur_ya = false;
     boolean sur_xp = false;
     boolean sur_yp = false;
+
+    boolean panierMarque = false;
 
     //System.out.println(panier.r1[0]);
     // balle rentre dans le panier
@@ -194,15 +206,17 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
         double new_theta = -Math.atan(ball.getVitesseY(time)/ball.getVitesseX(time));
         ball.setConditionsInitiales(new_v0, Math.PI-new_theta);
         time = 0;
-      }else if(dans_x && dans_y && time > deltaT){
+      }else if(dans_x && dans_y && time > 2*deltaT && !panierMarque){
         System.out.println("Panier"); // problème pcq ca s'affiche même si ca passe pas dans le ballon, je pense que c'est une histoire des theta mais je sais pas comment faire
         score = score + 1;
+        horloge.setScore(score);
         dans_x = false;
         dans_y = false;
         ball.setCoordsInitiales(ball.x,ball.y);
         double new_v0 = Math.sqrt(ball.getVitesseX(time) * ball.getVitesseX(time) + ball.getVitesseY(time) * ball.getVitesseY(time));
         ball.setConditionsInitiales(new_v0, -Math.PI/2);
         time = 0;
+        panierMarque = true;
       }else if(hors_x || hors_y){
         System.out.println("HE HE HE LES GARS ÇA SORT JE SAIS PAS SI VOUS AVEZ VU");
 
