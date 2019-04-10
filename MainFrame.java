@@ -44,14 +44,15 @@ public class MainFrame extends JFrame {
   }
 
   public String switchCards() {
-    ((CardLayout)mainPanel.getLayout()).next(mainPanel);
 
     if(currentCard.equals(MENU)) {
       ((CardLayout)mainPanel.getLayout()).show(mainPanel, GAME);
+      currentCard = GAME;
       game.startTimer();
     }
     else if(currentCard.equals(GAME)) {
       ((CardLayout)mainPanel.getLayout()).show(mainPanel, MENU);
+      currentCard = MENU;
     }
 
     return currentCard;

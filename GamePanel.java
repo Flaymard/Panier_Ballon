@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
   // l'objet Horloge qui affiche le temps imparti au joueur ainsi que son score
   Horloge horloge;
-  
+
   BufferedImage fond=null;
 
   // time : temps pour le déplacement du panier --- tempsJeu : décompte du temps imparti, initialisé à 60 secondes
@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
     // dessin du fond noir
     g.setColor(Color.black);
     g.fillRect(0,0, 800, 600);
-    
+
     g.drawImage(fond,0,0,800,600,null);
 
     // si le jeu est fini, on ne dessine rien d'autre
@@ -87,8 +87,9 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
       try {
         Thread.sleep(2000);
       } catch(Exception e) {
-        
+
       }
+      this.stopGame();
       frame.switchCards();
     }
 
@@ -122,7 +123,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
   public void setPanier(Panier p) {
     this.panier = p;
   }
-  
+
   public void setFond(BufferedImage im){
       this.fond = im;
   }
