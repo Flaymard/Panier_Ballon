@@ -22,9 +22,10 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
   // l'objet Horloge qui affiche le temps imparti au joueur ainsi que son score
   Horloge horloge;
 
-  // time : temps pour le déplacement du panier --- tempsJeu : décompte du temps imparti
+  // time : temps pour le déplacement du panier --- tempsJeu : décompte du temps imparti, initialisé à 60 secondes
   double time = 0;
-  int tempsJeu = 0;
+  final int tempsJeu_init = 35;
+  int tempsJeu = tempsJeu_init;
   int deltaT = 4;
   int deltaT_panier = 25;
 
@@ -35,6 +36,9 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
   // contient le score du joueur
   int score = 0;
+
+  // jeu fini
+  boolean gameFinished = false;
 
   // pour l'interaction avec le ballon
   double argument = 0.0;
@@ -68,6 +72,19 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
     // dessin du fond noir
     g.setColor(Color.black);
     g.fillRect(0,0, 800, 600);
+
+    // si le jeu est fini, on ne dessine rien d'autre
+    if(gameFinished) {
+      g.setColor(Color.red);
+      g.setFont(new Font("Latin", Font.PLAIN, 35));
+      g.drawString("FIN DE LA PARTIE",this.getWidth()/2 - 100,this.getHeight()/2);
+      try {
+        Thread.sleep(2000);
+      } catch(Exception e) {
+        
+      }
+      frame.switchCards();
+    }
 
     // dessin du ballon en fonction de ses coordonnées
     g.setColor(Color.orange);
@@ -171,8 +188,16 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
     }
     if(e.getSource() == timerHorloge) {
       //this.panier.deplace();
-      tempsJeu += 1000;
-      horloge.setTemps(tempsJeu/1000);
+      if(tempsJeu == 0) {
+        timerHorloge.stop();
+        this.stopGame();
+      }
+      tempsJeu -= 1;
+      if(!timerPanier.isRunning() && tempsJeu <= 30) {
+        timerPanier.start();
+      }
+
+      horloge.setTemps(tempsJeu);
       repaint();
 
     }
@@ -257,8 +282,17 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
   }
 
   public void startTimer() {
-    tempsJeu = 0;
+    gameFinished = false;
+    tempsJeu = tempsJeu_init;
+    time = 0;
     timerHorloge.start();
+  }
+
+  public void stopGame() {
+    gameFinished = true;
+    timerBall.stop();
+    timerPanier.stop();
+    timerHorloge.stop();
   }
 
 }

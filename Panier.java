@@ -13,7 +13,7 @@ public class Panier{
 	public int []ypi = {165,165,280,280};  // coordonnées initiales y des points du polygone du filet
     public int []yp={165,165,280,280};
 	public int [] r1i = {670,150,111,15}; // coordonées initiales rectangle rouge ou arceau
-    public int []r1={670,150,111,15};  
+    public int []r1={670,150,111,15};
 	public int []r2i = {770,80,10,70};  // coordonnées initiales rectangle blanc ou planche
     public int []r2={770,80,10,70};
 	public int []l1i ={726,165,705,188};
@@ -32,24 +32,9 @@ public class Panier{
 	public void dessine(Graphics g){
 		g.setColor(Color.red);
 
-    r1[1]= r1[1]+ variable;
-    r2[1] = r2[1]+variable;
-    l1[1] = l1[1]+variable;
-    l1[3] =l1[3]+variable;
-    l2[1] =l2[1]+variable;
-    l2[3] = l2[3]+variable;
-    l3[1]= l3[1]+variable;
-    l3[3]= l3[3]+variable;
-    l4[1] = l4[1]+variable;
-    l4[3]= l4[3]+variable;
-
 		g.fillRect(r1[0],r1[1],r1[2],r1[3]);
 		g.setColor(Color.white);
 		g.fillRect(r2[0],(r2[1]),r2[2],r2[3]);
-
-    for(int i=0;i<yp.length;i++){
-        yp[i]=yp[i]+variable;
-    }
 
     g.drawPolygon(xp, yp, 4);
 		g.drawLine(l1[0],l1[1], l1[2],l1[3]);
@@ -72,6 +57,22 @@ public class Panier{
         } else {
             sens=1;
         }
-        System.out.println(r1[1]);
+    // System.out.println(r1[1]); DEBUG
+
+    for(int i=0;i<yp.length;i++){
+        yp[i]=yp[i]+variable;
+    }
+
+    r1[1]= r1[1]+ variable;
+    r2[1] = r2[1]+variable;
+    l1[1] = l1[1]+variable;
+    l1[3] =l1[3]+variable;
+    l2[1] =l2[1]+variable;
+    l2[3] = l2[3]+variable;
+    l3[1]= l3[1]+variable;
+    l3[3]= l3[3]+variable;
+    l4[1] = l4[1]+variable;
+    l4[3]= l4[3]+variable;
+
 	}
 }
