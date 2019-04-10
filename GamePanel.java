@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
   // l'objet Horloge qui affiche le temps imparti au joueur ainsi que son score
   Horloge horloge;
   
+  // l'image de fond du jeu
   BufferedImage fond=null;
 
   // time : temps pour le déplacement du panier --- tempsJeu : décompte du temps imparti, initialisé à 60 secondes
