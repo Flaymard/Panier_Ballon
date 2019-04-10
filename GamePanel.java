@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.imageio.*;
+import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements MouseListener, ActionListener, MouseMotionListener {
 
@@ -21,6 +23,8 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
   // l'objet Horloge qui affiche le temps imparti au joueur ainsi que son score
   Horloge horloge;
+  
+  BufferedImage fond=null;
 
   // time : temps pour le déplacement du panier --- tempsJeu : décompte du temps imparti
   double time = 0;
@@ -68,6 +72,8 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
     // dessin du fond noir
     g.setColor(Color.black);
     g.fillRect(0,0, 800, 600);
+    
+    g.drawImage(fond,0,0,800,600,null);
 
     // dessin du ballon en fonction de ses coordonnées
     g.setColor(Color.orange);
@@ -98,6 +104,10 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
   public void setPanier(Panier p) {
     this.panier = p;
+  }
+  
+  public void setFond(BufferedImage im){
+      this.fond = im;
   }
 
   public void mousePressed(MouseEvent e) {
