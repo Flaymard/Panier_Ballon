@@ -20,8 +20,6 @@ public class Menu extends JPanel implements ActionListener {
 
     private MainFrame frame;
 
-
-
     public Menu (MainFrame frame) {
 
       this.frame = frame;

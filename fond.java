@@ -9,20 +9,18 @@ public class fond extends JFrame {
 
 
 
-    
+
     public fond(JLabel im){
-        
+
         setLocation(100, 100);
         setSize (800,600);
-        
+
         //im = new JLabel (new ImageIcon ("temp.jpg"));
         im.setBounds(0,0,getWidth(),getHeight());
         im.setVisible(true);
         this.add(im);
-       
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 }
-
-

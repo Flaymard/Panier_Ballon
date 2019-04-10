@@ -4,43 +4,59 @@ import java.awt.event.*;
 
 public class GamePanel extends JPanel implements MouseListener, ActionListener, MouseMotionListener {
 
+  // la MainFrame dans laquelle est contenue le GamePanel
+  MainFrame frame;
+
+  // objet Ballon et variable booléenne pour détecter si le joueur clique sur le ballon ou en dehors
   Ballon ball = null;
   boolean onBall;
 
+  // détermine si il faut dessiner une trajectoire ou non selon la situation
   boolean drawTraj;
+
   boolean panierMarque = false;
 
+  // objet Panier
   Panier panier = null;
 
+  // l'objet Horloge qui affiche le temps imparti au joueur ainsi que son score
   Horloge horloge;
 
-  MainFrame frame;
-
+  // time : temps pour le déplacement du panier --- tempsJeu : décompte du temps imparti
   double time = 0;
   int tempsJeu = 0;
   int deltaT = 4;
-  Timer timer;
-  Timer timerbis;
+  int deltaT_panier = 25;
 
+  // tous les Timer dont on se sert pour les différents objets
+  Timer timerBall;
+  Timer timerHorloge;
+  Timer timerPanier;
+
+  // contient le score du joueur
   int score = 0;
 
+  // pour l'interaction avec le ballon
   double argument = 0.0;
   double module = 0.0;
 
   public GamePanel(Ballon b, Panier p, MainFrame frame) {
 
+    // initialisation du JPanel
     this.setSize(800,600);
     this.setLocation(0,0);
-
     this.addMouseListener(this);
     this.addMouseMotionListener(this);
 
-    timer = new Timer(deltaT, this);
+    // initialisation des Timer
+    timerBall = new Timer(deltaT, this);
+    timerPanier = new Timer(deltaT_panier, this);
+    timerHorloge = new Timer(1000, this);
 
-    timerbis = new Timer(1000, this);
-
+    // initialisation de l'horloge de jeu
     horloge = new Horloge(tempsJeu, score);
 
+    // initialisation des éléments du jeu
     this.ball = b;
     this.panier = p;
     this.frame = frame;
@@ -49,17 +65,23 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
   public void paint(Graphics g) {
 
+    // dessin du fond noir
     g.setColor(Color.black);
     g.fillRect(0,0, 800, 600);
+
+    // dessin du ballon en fonction de ses coordonnées
     g.setColor(Color.orange);
     ball.setCoords(time);
     ball.drawBall(g);
 
+    // dessin du panier
     panier.dessine(g);
 
+    // dessin de l'horloge (affichage temps et score)
     g.setColor(Color.white);
     horloge.dessine(g);
 
+    // si il faut dessiner une trajectoire (déterminé dans mouseDragged)
     if(drawTraj) {
       Trajectoire traj = new Trajectoire((module/170)*4, argument, ball.getCenterX(), ball.getCenterY());
       traj.drawTrajectoire(g);
@@ -107,7 +129,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
       argument = -1*Math.atan(((double) (cercleY-sourisY))/(cercleX-sourisX));
       module = Math.sqrt(Math.pow(cercleY - sourisY, 2) + Math.pow(cercleX - sourisX, 2));
       ball.setConditionsInitiales((module/170)*4, argument);
-      timer.start();
+      timerBall.start();
       time = 0;
       repaint();
 
@@ -127,7 +149,9 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
     int sourisX = e.getX();
     int sourisY = e.getY();
 
-    drawTraj = true;
+    if(onBall) {
+      drawTraj = true;
+    }
 
     argument = Math.atan(((double) (cercleY-sourisY))/(cercleX-sourisX));
     module = Math.sqrt(Math.pow(cercleY - sourisY, 2) + Math.pow(cercleX - sourisX, 2));
@@ -139,18 +163,22 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
   public void actionPerformed(ActionEvent e){
 
-    if(e.getSource() == timer) {
+    if(e.getSource() == timerBall) {
       time += deltaT;
       testContact();
       repaint();
 
     }
-    if(e.getSource() == timerbis) {
+    if(e.getSource() == timerHorloge) {
       //this.panier.deplace();
       tempsJeu += 1000;
       horloge.setTemps(tempsJeu/1000);
       repaint();
 
+    }
+    if(e.getSource() == timerPanier) {
+      this.panier.deplace();
+      repaint();
     }
 
   }
@@ -219,7 +247,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
       }else if(hors_x || hors_y){
         //System.out.println("ballon sort"); DEBUG
 
-        timer.stop();
+        timerBall.stop();
         time = 0;
         ball.setCoordsInitiales((int)(Math.random()*(300-10)+ 10),(int)(Math.random()*(500-300)+300));
         hors_x = false;
@@ -230,7 +258,7 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener, 
 
   public void startTimer() {
     tempsJeu = 0;
-    timerbis.start();
+    timerHorloge.start();
   }
 
 }
