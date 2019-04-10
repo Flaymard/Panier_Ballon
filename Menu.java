@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.awt.event.*;
+import javax.imageio.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class Menu extends JPanel implements ActionListener {
 
@@ -100,16 +103,36 @@ public class Menu extends JPanel implements ActionListener {
             System.out.println(frame.switchCards());
         }
         if (e.getSource()==b1){
-            fond f = new fond (imagefloflo);
+            try {
+                BufferedImage im = ImageIO.read(new File("photoflo.jpg"));
+                frame.game.setFond(im);
+            }
+            catch(Exception i){}
+            System.out.println(frame.switchCards());
         }
         if (e.getSource()==b2){
-            fond f = new fond (imagejuju);
+            try {
+                BufferedImage im = ImageIO.read(new File("photojuju.jpg"));
+                frame.game.setFond(im);
+                }
+            catch(Exception i){}
+            System.out.println(frame.switchCards());
         }
         if (e.getSource()==b3){
-            fond f = new fond (imagegaga);
+            try {
+                BufferedImage im = ImageIO.read(new File("photogaga.jpg"));
+                frame.game.setFond(im);
+                }
+            catch(Exception i){}
+            System.out.println(frame.switchCards());
         }
         if (e.getSource()==b4){
-            fond f = new fond (imagelele);
+            try {
+                BufferedImage im = ImageIO.read(new File("photolele.jpg"));
+                frame.game.setFond(im);
+                }
+            catch(Exception i){}
+            System.out.println(frame.switchCards());
         }
     }
 
