@@ -16,6 +16,8 @@ public class Panier{
     public int []r1={670,150,111,15};
 	public int []r2i = {770,80,10,70};  // coordonnées initiales rectangle blanc ou planche
     public int []r2={770,80,10,70};
+
+    // coordonnées des lignes du filet
 	public int []l1i ={726,165,705,188};
     public int []l1={726,165,705,188};
 	public int []l2i= {752,165,710,211};
@@ -26,9 +28,10 @@ public class Panier{
     public int []l4={780,165,715,235};
 
 	public Panier () {
-
+    // le constructeur est vide, il n'y a pas de traitement particulier à effectuer
 	}
 
+  // dessin du panier
 	public void dessine(Graphics g){
 		g.setColor(Color.red);
 
@@ -44,6 +47,7 @@ public class Panier{
 
 	}
 
+  // cette méthode appellée à chaque incrément du timerPanier dans le GamePanel permet de déplacer le panier de haut en bas, de 5 pixels à chaque fois
 	public void deplace(){
 		this.variable= sens*5;
         if (this.r1[1]>450){

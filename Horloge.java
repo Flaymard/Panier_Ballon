@@ -13,12 +13,16 @@ public class Horloge {
         score=scoreDonne;
     }
 
+
+    // affichage du temps et du score en haut de la fenêtre de jeu
     public void dessine(Graphics g){
+
+            g.setColor(Color.green);
             g.setFont(new Font("Latin", Font.PLAIN, 35));
             String s1 = Integer.toString(temps)+" s";
-            g.drawString(s1,100,100);
+            g.drawString(s1,100,150);
             String s2 = "SCORE : "+Integer.toString(score);
-            g.drawString(s2,300,100);
+            g.drawString(s2,300,150);
     }
 
     public void setTemps(int valeur){

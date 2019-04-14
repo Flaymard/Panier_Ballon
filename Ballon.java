@@ -8,6 +8,7 @@ public class Ballon {
   int x;
   int y;
   public final int diameter = 50;
+
   //CONDITIONS INITIALES
   private double v_0;
   private double theta;
@@ -29,6 +30,8 @@ public class Ballon {
     g.fillOval(this.x, this.y, this.diameter, this.diameter);
   }
 
+
+  // Les trois méthodes suivantes permettent de paramétrer les conditions initiales de déplacement ainsi que de faire évoluer la position du ballon en fonction du temps (équations paraboliques paramétrées)
   public void setConditionsInitiales(double v_0, double theta) {
 
     this.v_0 = v_0;
@@ -48,6 +51,8 @@ public class Ballon {
     this.y =(int) (g*(t*t)/2-v_0*Math.sin(theta)*t+init_y);
 
   }
+
+  // Toutes les méthodes ci-dessous permettent d'obtenir des informations sur le déplacement et la position du ballon, ainsi que sa position à time = 0
 
   public double getVitesseX(double t) {
     double vx;
