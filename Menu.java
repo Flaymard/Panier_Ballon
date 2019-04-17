@@ -100,7 +100,7 @@ public class Menu extends JPanel implements ActionListener {
 
         if (e.getSource()==b1){
             try {
-                BufferedImage im = ImageIO.read(new File("photoflo.jpg"));
+                BufferedImage im = ImageIO.read(new File("photoflorian.jpg"));
                 frame.game.setFond(im);
                 b1.setBackground(Color.green);
                 b2.setBackground(Color.blue);
@@ -112,7 +112,7 @@ public class Menu extends JPanel implements ActionListener {
         }
         if (e.getSource()==b2){
             try {
-                BufferedImage im = ImageIO.read(new File("photojuju.jpg"));
+                BufferedImage im = ImageIO.read(new File("photojuliette.jpg"));
                 frame.game.setFond(im);
                 b2.setBackground(Color.green);
                 b1.setBackground(Color.blue);
@@ -124,7 +124,7 @@ public class Menu extends JPanel implements ActionListener {
         }
         if (e.getSource()==b3){
             try {
-                BufferedImage im = ImageIO.read(new File("photogaga.jpg"));
+                BufferedImage im = ImageIO.read(new File("photogaetan.jpg"));
                 frame.game.setFond(im);
                 b3.setBackground(Color.green);
                 b1.setBackground(Color.blue);
@@ -136,7 +136,7 @@ public class Menu extends JPanel implements ActionListener {
         }
         if (e.getSource()==b4){
             try {
-                BufferedImage im = ImageIO.read(new File("photolele.jpg"));
+                BufferedImage im = ImageIO.read(new File("photolea.jpg"));
                 frame.game.setFond(im);
                 b4.setBackground(Color.green);
                 b1.setBackground(Color.blue);
